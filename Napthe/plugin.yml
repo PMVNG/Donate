@@ -1,9 +1,0 @@
-name: Napthe
-version: 0.0.1
-main: hachkingtohach1\Napthe\Napthe
-api:
-- 3.0.0
-author: hachkingtohach1,tungstenvn
-commands:
-  napthe:
-    description: "Plugin Napthe for pocketmine_pmmp"

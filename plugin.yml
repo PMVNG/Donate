@@ -1,0 +1,19 @@
+---
+name: NapThe
+version: 0.0.1
+main: hachkingtohach1\NapThe\Main
+api: 4.0.0
+author: hachkingtohach1
+authors: [TungstenVN, NhanAZ]
+
+commands:
+  napthe:
+    description: "Nạp thẻ"
+    permission: napthe.command
+
+# TODO: Top Donate
+
+permissions:
+  napthe.command:
+    default: true
+...
