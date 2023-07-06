@@ -3,8 +3,8 @@
         "jojoe77777/formapi": "dev-master"
     },
     "require-dev": {
-        "phpstan/phpstan": "1.10.11",
-        "pocketmine/pocketmine-mp": "4.18.3"
+        "phpstan/phpstan": "1.10.25",
+        "pocketmine/pocketmine-mp": "5.2.0"
     },
     "repositories": [
         {
