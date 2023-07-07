@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace hachkingtohach1\NapThe\Utils;
+namespace hachkingtohach1\NapThe;
 
 use hachkingtohach1\NapThe\Main;
 

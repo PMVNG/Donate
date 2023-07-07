@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace hachkingtohach1\NapThe\Task;
 
-use hachkingtohach1\NapThe\Code\StatusCode;
 use hachkingtohach1\NapThe\Main;
-use hachkingtohach1\NapThe\Exception\InternetException;
-use hachkingtohach1\NapThe\Partner\Partner;
+use hachkingtohach1\NapThe\Partner;
+use hachkingtohach1\NapThe\StatusCode;
 use pocketmine\scheduler\AsyncTask;
 
 class CheckTask extends AsyncTask {
@@ -27,7 +26,7 @@ class CheckTask extends AsyncTask {
 		$arrayPost["command"] = "check";
 		$ch = curl_init(Partner::URL);
 		if ($ch === false) {
-			throw new InternetException("Unable to create new cURL session");
+			throw new \RuntimeException("Unable to create new cURL session");
 		}
 		curl_setopt_array($ch, [
 			CURLOPT_POST => true,
@@ -40,7 +39,7 @@ class CheckTask extends AsyncTask {
 		]);
 		$raw = curl_exec($ch);
 		if ($raw === false) {
-			throw new InternetException(curl_error($ch));
+			throw new \RuntimeException(curl_error($ch));
 		}
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		/** @phpstan-ignore-next-line */

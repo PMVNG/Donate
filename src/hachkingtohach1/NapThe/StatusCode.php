@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace hachkingtohach1\NapThe\Code;
+namespace hachkingtohach1\NapThe;
 
 final class StatusCode {
 

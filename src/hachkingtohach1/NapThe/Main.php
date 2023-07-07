@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace hachkingtohach1\NapThe;
 
 use jojoe77777\FormAPI\CustomForm;
-use hachkingtohach1\NapThe\Partner\Partner;
+use hachkingtohach1\NapThe\Partner;
 use hachkingtohach1\NapThe\Task\ChargingTask;
-use hachkingtohach1\NapThe\Utils\SingletonTrait;
+use hachkingtohach1\NapThe\SingletonTrait;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
