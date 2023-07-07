@@ -23,7 +23,7 @@ class Main extends PluginBase {
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {
 		if (!$sender instanceof Player) {
-			$sender->sendMessage("§cBạn không thể sử dụng lệnh này trong thiết bị đầu cuối!");
+			$sender->sendMessage(Constant::PREFIX . "Bạn không thể sử dụng lệnh này trong thiết bị đầu cuối!");
 			return true;
 		}
 		if ($command->getName() == "napthe") {
@@ -38,7 +38,7 @@ class Main extends PluginBase {
 				));
 			});
 			$form->setTitle(title: "Biểu Mẫu Nạp Thẻ");
-			$form->addDropdown(text: "Loại thẻ:", options: Constant::TELCO);
+			$form->addDropdown(text: "Loại thẻ:", options: Constant::TELCO, default: 0);
 			$form->addStepSlider(text: "Mệnh giá", steps: Constant::AMOUNT);
 			$form->addInput(text: "Số sê-ri:", placeholder: "10004783347874");
 			$form->addInput(text: "Mã thẻ:", placeholder: "312821445892982");

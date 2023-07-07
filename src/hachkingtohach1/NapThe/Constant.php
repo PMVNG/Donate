@@ -6,6 +6,8 @@ namespace hachkingtohach1\NapThe;
 
 final class Constant {
 
+	public const PREFIX = "[Nạp Thẻ] ";
+
 	public const ID = "";
 
 	public const KEY = "";
