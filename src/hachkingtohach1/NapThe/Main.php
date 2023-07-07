@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace hachkingtohach1\NapThe;
 
 use jojoe77777\FormAPI\CustomForm;
-use hachkingtohach1\NapThe\Partner;
 use hachkingtohach1\NapThe\Task\ChargingTask;
 use hachkingtohach1\NapThe\SingletonTrait;
 use pocketmine\command\Command;
@@ -31,16 +30,16 @@ class Main extends PluginBase {
 			$form = new CustomForm(function (Player $sender, $data) {
 				// TODO: Check $data
 				$this->getServer()->getAsyncPool()->submitTask(new ChargingTask(
-					telco: Partner::TELCO[$data[0]],
+					telco: Constant::TELCO[$data[0]],
 					code: $data[3],
 					serial: $data[2],
-					amount: (int) Partner::AMOUNT[$data[1]],
+					amount: (int) Constant::AMOUNT[$data[1]],
 					playerName: $sender->getName()
 				));
 			});
 			$form->setTitle(title: "Biểu Mẫu Nạp Thẻ");
-			$form->addDropdown(text: "Loại thẻ:", options: Partner::TELCO);
-			$form->addStepSlider(text: "Mệnh giá", steps: Partner::AMOUNT);
+			$form->addDropdown(text: "Loại thẻ:", options: Constant::TELCO);
+			$form->addStepSlider(text: "Mệnh giá", steps: Constant::AMOUNT);
 			$form->addInput(text: "Số sê-ri:", placeholder: "10004783347874");
 			$form->addInput(text: "Mã thẻ:", placeholder: "312821445892982");
 			$sender->sendForm($form);

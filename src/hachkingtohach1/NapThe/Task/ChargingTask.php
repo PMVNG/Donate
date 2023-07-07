@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace hachkingtohach1\NapThe\Task;
 
+use hachkingtohach1\NapThe\Constant;
 use hachkingtohach1\NapThe\Main;
-use hachkingtohach1\NapThe\Partner;
 use hachkingtohach1\NapThe\StatusCode;
 use pocketmine\scheduler\AsyncTask;
 
@@ -21,18 +21,18 @@ class ChargingTask extends AsyncTask {
 	}
 
 	public function onRun(): void {
-		$dataSign = md5(Partner::KEY . $this->code . $this->serial);
+		$dataSign = md5(Constant::KEY . $this->code . $this->serial);
 		$arrayPost = [
 			"telco" => $this->telco,
 			"code" => $this->code,
 			"serial" => $this->serial,
 			"amount" => $this->amount,
 			"request_id" => time(),
-			"partner_id" => Partner::ID,
+			"partner_id" => Constant::ID,
 			"sign" => $dataSign,
 			"command" => "charging"
 		];
-		$ch = curl_init(Partner::URL);
+		$ch = curl_init(Constant::URL);
 		if ($ch === false) {
 			throw new \RuntimeException("Unable to create new cURL session");
 		}

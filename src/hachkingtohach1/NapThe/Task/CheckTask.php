@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace hachkingtohach1\NapThe\Task;
 
+use hachkingtohach1\NapThe\Constant;
 use hachkingtohach1\NapThe\Main;
-use hachkingtohach1\NapThe\Partner;
 use hachkingtohach1\NapThe\StatusCode;
 use pocketmine\scheduler\AsyncTask;
 
@@ -24,7 +24,7 @@ class CheckTask extends AsyncTask {
 			return;
 		}
 		$arrayPost["command"] = "check";
-		$ch = curl_init(Partner::URL);
+		$ch = curl_init(Constant::URL);
 		if ($ch === false) {
 			throw new \RuntimeException("Unable to create new cURL session");
 		}

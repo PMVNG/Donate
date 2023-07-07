@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace hachkingtohach1\NapThe;
 
-final class HardConfig {
+final class Constant {
 
 	public const ID = "";
 
