@@ -38,5 +38,12 @@ class Donate extends PluginBase {
 	}
 
 	public function successfulDonation(string $playerName, string $amount): void {
+		$player = $this->getServer()->getPlayerExact($playerName);
+		$this->getServer()->broadcastMessage(Constant::PREFIX . "Người chơi $playerName đã nạp $amount để ủng hộ máy chủ!");
+		// Mã đưa tiền cho người chơi sẽ được viết tại đây.
+		// Ví dụ: EconomyAPI::addMoney($playerName, $amount * Constant::BONUS);
+		if ($player !== null) {
+			$player->sendMessage("Chân thành cảm ơn bản đã ủng hộ máy chủ $amount!");
+		}
 	}
 }
