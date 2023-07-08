@@ -15,14 +15,14 @@ class Constant {
 	public const URL = "https://trumthe.vn//chargingws/v2";
 
 	public const TELCO = [
-		Telco::VIETTEL,
-		Telco::VINA,
-		Telco::MOBI,
-		Telco::VIETNAMMOBI,
-		Telco::ZING,
-		Telco::GARENA,
-		Telco::VCOIN,
-		Telco::GATE
+		"VIETTEL",
+		"VINA",
+		"MOBI",
+		"VIETNAMMOBI",
+		"ZING",
+		"GARENA",
+		"VCOIN",
+		"GATE"
 	];
 
 	public const AMOUNT =  [
@@ -32,5 +32,14 @@ class Constant {
 		"100000",
 		"200000",
 		"500000"
+	];
+
+	public const AMOUNT_DISPLAY =  [
+		"10.000₫",
+		"20.000₫",
+		"50.000₫",
+		"100.000₫",
+		"200.000₫",
+		"500.000₫",
 	];
 }
