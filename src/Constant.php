@@ -14,6 +14,9 @@ class Constant {
 
 	public const URL = "https://trumthe.vn//chargingws/v2";
 
+	/** Số tiền người chơi nhận được trong máy chủ khi nạp thẻ thành công sẽ nhân với giá trị này */
+	public const BONUS = 1;
+
 	public const TELCO = [
 		"VIETTEL",
 		"VINA",
@@ -23,6 +26,17 @@ class Constant {
 		"GARENA",
 		"VCOIN",
 		"GATE"
+	];
+
+	public const TELCO_DISPLAY = [
+		"Viettel",
+		"VinaPhone",
+		"MobiFone",
+		"Vietnamobile",
+		"Zing",
+		"Garena",
+		"VCoin",
+		"Gate"
 	];
 
 	public const AMOUNT =  [
