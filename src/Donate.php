@@ -63,7 +63,8 @@ class Donate extends PluginBase {
 			arsort($donateData);
 			$i = 0;
 			$senderTop = 0;
-			foreach ($donateData as $playerName => $a) {
+			$serverTotalDonated = 0;
+			foreach ($donateData as $playerName => $totalDonated) {
 				if (($page - 1) * 10 <= $i && $i <= ($page - 1) * 10 + 9) {
 					$top = $i + 1;
 					if (is_string($playerName)) {
@@ -71,6 +72,7 @@ class Donate extends PluginBase {
 						if (is_int($playerTotalDonated)) {
 							$playerTotalDonated = number_format(num: $playerTotalDonated, decimals: 0, decimal_separator: ".", thousands_separator: ".");
 							$sender->sendMessage("$top. $playerName: {$playerTotalDonated}₫");
+							$serverTotalDonated = $serverTotalDonated + $totalDonated;
 						}
 					}
 				}
@@ -80,8 +82,10 @@ class Donate extends PluginBase {
 				$i++;
 			}
 			if ($sender instanceof Player) {
-				$sender->sendMessage("Xếp hạng của bạn $senderTop");
+				$sender->sendMessage("Xếp hạng của bạn là $senderTop");
 			}
+			$serverTotalDonated = number_format(num: intval($serverTotalDonated), decimals: 0, decimal_separator: ".", thousands_separator: ".");
+			$sender->sendMessage("Tổng số tiền nạp thẻ từ người chơi của máy chủ là: {$serverTotalDonated}₫");
 			return true;
 		}
 		return false;
