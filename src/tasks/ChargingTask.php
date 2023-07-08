@@ -95,9 +95,9 @@ class ChargingTask extends AsyncTask {
 			}
 			if (is_array($content) && $content["result"]["status"] == StatusCode::FAILED_WITH_REASON) {
 				$player->sendMessage(Constant::PREFIX . "Lỗi: " . $content["result"]["message"] . "!");
-			} else {
-				$player->sendMessage(Constant::PREFIX . "Lỗi không xác định! Vui lòng thử lại sau.");
+				return;
 			}
+			$player->sendMessage(Constant::PREFIX . "Lỗi không xác định! Vui lòng thử lại sau.");
 		}
 	}
 }
