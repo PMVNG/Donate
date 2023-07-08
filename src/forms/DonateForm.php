@@ -40,7 +40,10 @@ class DonateForm {
 				)
 			],
 			onSubmit: function (Player $submitter, CustomFormResponse $response): void {
-				var_dump($response);
+				if ($response->getString("serial") === "" || $response->getString("code") === "") {
+					$submitter->sendMessage(Constant::PREFIX . "Vui lòng không bỏ trống số sê-ri hoặc mã thẻ!");
+					return;
+				}
 			},
 		);
 	}

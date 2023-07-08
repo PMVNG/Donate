@@ -22,7 +22,7 @@ class Donate extends PluginBase {
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {
 		if (!$sender instanceof Player) {
-			$sender->sendMessage(Constant::PREFIX . "Bạn không thể sử dụng lệnh này trong thiết bị đầu cuối!");
+			$sender->sendMessage(Constant::PREFIX . "Vui lòng sử dụng lệnh này trong trò chơi!");
 			return true;
 		}
 		if ($command->getName() == "donate") {
