@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Donate\task;
+namespace Donate\tasks;
 
 use Donate\Constant;
 use Donate\Donate;

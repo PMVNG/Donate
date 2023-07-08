@@ -10,7 +10,9 @@ use dktapps\pmforms\element\Dropdown;
 use dktapps\pmforms\element\Input;
 use dktapps\pmforms\element\StepSlider;
 use Donate\Constant;
+use Donate\tasks\ChargingTask;
 use pocketmine\player\Player;
+use pocketmine\Server;
 
 class DonateForm {
 
@@ -40,10 +42,18 @@ class DonateForm {
 				)
 			],
 			onSubmit: function (Player $submitter, CustomFormResponse $response): void {
+				// TODO: Log submitter & response
 				if ($response->getString("serial") === "" || $response->getString("code") === "") {
 					$submitter->sendMessage(Constant::PREFIX . "Vui lòng không bỏ trống số sê-ri hoặc mã thẻ!");
 					return;
 				}
+				Server::getInstance()->getAsyncPool()->submitTask(new ChargingTask(
+					telco: Constant::TELCO[$response->getInt("telco")],
+					code: $response->getString("code"),
+					serial: $response->getString("serial"),
+					amount: Constant::AMOUNT[$response->getInt("amount")],
+					playerName: $submitter->getName()
+				));
 			},
 		);
 	}
