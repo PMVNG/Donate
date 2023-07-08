@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Donate\tasks;
 
 use Donate\Constant;
+use Donate\Donate;
 use Donate\StatusCode;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
@@ -71,7 +72,10 @@ class CheckTask extends AsyncTask {
 			return;
 		}
 		if (is_array($content) && $content["result"]["status"] == StatusCode::SUCCESS_MATCH_AMOUNT) {
-			/* Nạp Thẻ Thành Công!!! */
+			Donate::getInstance()->successfulDonation(
+				playerName: $this->playerName,
+				amount: $content["result"]["value"]
+			);
 			return;
 		}
 		if (is_array($content) && $content["result"]["status"] == StatusCode::WAITING_FOR_PROCESSING) {

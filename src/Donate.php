@@ -36,4 +36,7 @@ class Donate extends PluginBase {
 		}
 		return false;
 	}
+
+	public function successfulDonation(string $playerName, string $amount): void {
+	}
 }
