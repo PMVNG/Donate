@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Donate;
 
-final class Constant {
+class Constant {
 
 	public const PREFIX = "[Nạp Thẻ] ";
 

@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Donate;
 
-final class StatusCode {
+class StatusCode {
 
 	/** OK */
 	public const OK = 200;

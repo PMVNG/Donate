@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Donate;
 
-final class Telco {
+class Telco {
 
 	public const VIETTEL = "VIETTEL";
 
