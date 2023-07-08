@@ -11,10 +11,13 @@ commands:
     description: "Nạp thẻ"
     permission: donate.command
     aliases: [napthe]
-
-# TODO: Top Donate
+  topdonate:
+    description: "Hiển thị bảng xếp hạng nạp thẻ"
+    permission: topdonate.command
 
 permissions:
   donate.command:
+    default: true
+  topdonate.command:
     default: true
 ...
