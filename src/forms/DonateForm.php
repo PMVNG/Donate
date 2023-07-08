@@ -24,7 +24,7 @@ class DonateForm {
 				new Dropdown(
 					name: "telco",
 					text: "Loại thẻ",
-					options: Constant::TELCO
+					options: Constant::TELCO_DISPLAY
 				),
 				new StepSlider(
 					name: "amount",
@@ -54,7 +54,7 @@ class DonateForm {
 					amount: Constant::AMOUNT[$response->getInt("amount")],
 					playerName: $submitter->getName()
 				));
-				Donate::getInstance()->logger->info(Constant::PREFIX . "[playerName: " . $submitter->getName() . ", telco: " . Constant::TELCO[$response->getInt("telco")] . ", code: " . $response->getString("code") . ", serial: " . $response->getString("serial") . ", amount: " . Constant::AMOUNT_DISPLAY[$response->getInt("amount")] . "]");
+				Donate::getInstance()->logger->info(Constant::PREFIX . "[playerName: " . $submitter->getName() . ", telco: " . Constant::TELCO_DISPLAY[$response->getInt("telco")] . ", code: " . $response->getString("code") . ", serial: " . $response->getString("serial") . ", amount: " . Constant::AMOUNT_DISPLAY[$response->getInt("amount")] . "]");
 			},
 		);
 	}
