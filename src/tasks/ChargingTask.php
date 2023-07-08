@@ -49,7 +49,7 @@ class ChargingTask extends AsyncTask {
 		$raw = curl_exec($ch);
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		if (!is_string($raw)) {
-			var_dump(Constant::PREFIX . "Lỗi: Thực hiện một phiên cURL đã cho thất bại!");
+			var_dump(Constant::PREFIX . "Lỗi: Thực hiện một phiên cURL đã cho thất bại! (" . curl_error($ch) . ")");
 			return;
 		}
 		$result = json_decode($raw, true);
