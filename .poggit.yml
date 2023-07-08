@@ -1,8 +1,8 @@
---- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/NhanAZ/NapThe_hachkingtohach1
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/NhanAZ/NapThe
 build-by-default: true
 branches:
-- main
+- master
 projects:
-  NapThe_hachkingtohach1:
+  NapThe:
     path: ""
 ...
