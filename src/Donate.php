@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Donate;
 
-use Donate\forms\DonateForm;
 use Donate\SingletonTrait;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;

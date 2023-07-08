@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Donate\forms;
+namespace Donate;
 
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
