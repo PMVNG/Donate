@@ -26,7 +26,7 @@ class DonateForm {
 				new StepSlider(
 					name: "amount",
 					text: "Mệnh giá",
-					options: Constant::AMOUNT
+					options: Constant::AMOUNT_DISPLAY
 				),
 				new Input(
 					name: "serial",
