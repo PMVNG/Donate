@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Donate\tasks;
 
 use Donate\Constant;
-use Donate\Donate;
 use Donate\StatusCode;
 use pocketmine\scheduler\AsyncTask;
+use pocketmine\Server;
 
 class CheckTask extends AsyncTask {
 
@@ -20,13 +20,15 @@ class CheckTask extends AsyncTask {
 	public function onRun(): void {
 		$arrayPost = $this->arrayPost;
 		if (!is_array($arrayPost)) {
-			// Waring!
+			var_dump(Constant::PREFIX . "Lỗi! Điều gì đó đã khiến cho arrayPost không phải là một mảng?");
+			var_dump($arrayPost);
 			return;
 		}
 		$arrayPost["command"] = "check";
 		$ch = curl_init(Constant::URL);
 		if ($ch === false) {
-			throw new \RuntimeException("Unable to create new cURL session");
+			var_dump(Constant::PREFIX . "Lỗi: Không thể tạo một phiên cURL mới!");
+			return;
 		}
 		curl_setopt_array($ch, [
 			CURLOPT_POST => true,
@@ -38,11 +40,11 @@ class CheckTask extends AsyncTask {
 			CURLOPT_POSTFIELDS => http_build_query($arrayPost)
 		]);
 		$raw = curl_exec($ch);
-		if ($raw === false) {
-			throw new \RuntimeException(curl_error($ch));
-		}
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		/** @phpstan-ignore-next-line */
+		if (!is_string($raw)) {
+			var_dump(Constant::PREFIX . "Lỗi: Thực hiện một phiên cURL đã cho thất bại! (" . curl_error($ch) . ")");
+			return;
+		}
 		$result = json_decode($raw, true);
 		$content = [
 			"web_status" => $httpCode,
@@ -52,15 +54,20 @@ class CheckTask extends AsyncTask {
 	}
 
 	public function onCompletion(): void {
-		$main = Donate::getInstance();
 		$content = $this->getResult();
-		$player = $main->getServer()->getPlayerExact($this->playerName);
-		if (!isset($content)) {
-			$main->getServer()->getLogger()->error(Constant::PREFIX . "Can't get updated information. Timed out?");
+		$player = Server::getInstance()->getPlayerExact($this->playerName);
+		if (!isset($content) || is_array($content) && $content["result"] == false) {
+			if ($player !== null) {
+				$player->sendMessage(Constant::PREFIX . "Đã có lỗi xảy ra! Vui lòng thử lại sau.");
+			}
+			var_dump(Constant::PREFIX . "Lỗi: Không thể lấy thông tin cập nhật. Kết nối hết thời gian chờ?!");
 			return;
 		}
 		if (is_array($content) && $content["web_status"] !== StatusCode::OK) {
-			var_dump($content);
+			if ($player !== null) {
+				$player->sendMessage(Constant::PREFIX . "Đã cố lỗi xảy ra! Vui lòng thử lại sau.");
+			}
+			var_dump(Constant::PREFIX . "Lỗi: Trạng thái trang web không ổn!");
 			return;
 		}
 		if (is_array($content) && $content["result"]["status"] == StatusCode::SUCCESS_MATCH_AMOUNT) {
@@ -68,20 +75,30 @@ class CheckTask extends AsyncTask {
 			return;
 		}
 		if (is_array($content) && $content["result"]["status"] == StatusCode::WAITING_FOR_PROCESSING) {
-			$main->getServer()->getAsyncPool()->submitTask(new CheckTask($this->arrayPost, $this->playerName));
-			if ($player == null) {
-				return;
+			Server::getInstance()->getAsyncPool()->submitTask(new CheckTask(
+				arrayPost: $content["arrayPost"],
+				playerName: $this->playerName
+			));
+			if ($player !== null) {
+				$player->sendMessage(Constant::PREFIX . "Đang kiểm tra thẻ... Vui lòng đợi.");
 			}
-			$player->sendTip("§l✾§aĐang kiểm tra thẻ, xin §cđừng chat§a lúc này vì bạn sẽ không nhận được bảng thông tin phản hồi...");
 			return;
 		}
-
-		if ($player !== null) { /* Kiểm tra xem người chơi có đang trực tuyến hay không? Nếu có thì gửi các thông báo liên quan. */
+		if ($player !== null) {
 			if (is_array($content) && $content["result"]["status"] == StatusCode::SUCCESS_NOT_MATCH_AMOUNT) {
-				$player->sendMessage("[Donate] Nạp thẻ thành công! (Sai mệnh giá)");
-			} else {
-				$player->sendMessage("[Donate] Lỗi không xác định. Vui lòng kiểm tra lại các thông tin của thẻ hoặc thông báo cho quản trị viên.");
+				$player->sendMessage(Constant::PREFIX . "Bạn đã chọn sai mệnh giá! Mệnh giá đúng: " . $content["result"]["value"] . ". Mệnh giá bạn đã chọn: " . $content["result"]["declared_value"]);
+				return;
 			}
+			if (is_array($content) && $content["result"]["status"] == StatusCode::FAILED_WITH_REASON) {
+				$player->sendMessage(Constant::PREFIX . "Lỗi: " . $content["result"]["message"] . "!");
+				return;
+			}
+			if (!is_array($content)) {
+				var_dump(Constant::PREFIX . "Lỗi! Điều gì đó đã khiến cho content không phải là một mảng?");
+				var_dump($content);
+				return;
+			}
+			$player->sendMessage(Constant::PREFIX . "Có lỗi xảy ra với mã giao dịch: " . $content["result"]["request_id"] . "! Thông tin lỗi: " .  $content["result"]["message"]);
 		}
 	}
 }
