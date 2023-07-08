@@ -1,4 +1,4 @@
---- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/NhanAZ/Donate
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/Trigger/Donate
 build-by-default: true
 branches:
 - master

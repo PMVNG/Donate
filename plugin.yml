@@ -10,7 +10,7 @@ commands:
   donate:
     description: "Nạp thẻ"
     permission: donate.command
-    aliases: [donate]
+    aliases: [napthe]
 
 # TODO: Top Donate
 
