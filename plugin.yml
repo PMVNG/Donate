@@ -1,19 +1,20 @@
 ---
-name: NapThe
+name: Donate
 version: 0.0.1
-main: hachkingtohach1\NapThe\Main
+main: Donate\Donate
+src-namespace-prefix: Donate
 api: 5.0.0
-author: hachkingtohach1
-authors: [TungstenVN, NhanAZ]
+authors: [hachkingtohach1, TungstenVN, NhanAZ]
 
 commands:
-  napthe:
+  donate:
     description: "Nạp thẻ"
-    permission: napthe.command
+    permission: donate.command
+    aliases: [donate]
 
 # TODO: Top Donate
 
 permissions:
-  napthe.command:
+  donate.command:
     default: true
 ...

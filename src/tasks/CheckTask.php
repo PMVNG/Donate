@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace hachkingtohach1\NapThe\Task;
+namespace Donate\task;
 
-use hachkingtohach1\NapThe\Constant;
-use hachkingtohach1\NapThe\Main;
-use hachkingtohach1\NapThe\StatusCode;
+use Donate\Constant;
+use Donate\Donate;
+use Donate\StatusCode;
 use pocketmine\scheduler\AsyncTask;
 
 class CheckTask extends AsyncTask {
@@ -52,11 +52,11 @@ class CheckTask extends AsyncTask {
 	}
 
 	public function onCompletion(): void {
-		$main = Main::getInstance();
+		$main = Donate::getInstance();
 		$content = $this->getResult();
 		$player = $main->getServer()->getPlayerExact($this->playerName);
 		if (!isset($content)) {
-			$main->getServer()->getLogger()->error("[NapThe] Can't get updated information. Timed out?");
+			$main->getServer()->getLogger()->error(Constant::PREFIX . "Can't get updated information. Timed out?");
 			return;
 		}
 		if (is_array($content) && $content["web_status"] !== StatusCode::OK) {

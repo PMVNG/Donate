@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace hachkingtohach1\NapThe;
+namespace Donate;
 
 final class Telco {
 
