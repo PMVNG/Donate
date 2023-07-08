@@ -10,14 +10,19 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\MainLogger;
+use pocketmine\utils\Terminal;
+use pocketmine\utils\Timezone;
+use Symfony\Component\Filesystem\Path;
 
 class Donate extends PluginBase {
 	use SingletonTrait;
 
-	public static self $instance;
+	public MainLogger $logger;
 
 	protected function onEnable(): void {
 		self::setInstance($this);
+		$this->logger = new MainLogger(Path::join($this->getDataFolder(), "log.log"), Terminal::hasFormattingCodes(), "Server", new \DateTimeZone(Timezone::get()));
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {
