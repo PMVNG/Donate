@@ -27,24 +27,28 @@ class Main extends PluginBase {
 			return true;
 		}
 		if ($command->getName() == "napthe") {
-			$form = new CustomForm(function (Player $sender, $data) {
-				// TODO: Check $data
-				$this->getServer()->getAsyncPool()->submitTask(new ChargingTask(
-					telco: Constant::TELCO[$data[0]],
-					code: $data[3],
-					serial: $data[2],
-					amount: (int) Constant::AMOUNT[$data[1]],
-					playerName: $sender->getName()
-				));
-			});
-			$form->setTitle(title: "Biểu Mẫu Nạp Thẻ");
-			$form->addDropdown(text: "Loại thẻ:", options: Constant::TELCO, default: 0);
-			$form->addStepSlider(text: "Mệnh giá", steps: Constant::AMOUNT);
-			$form->addInput(text: "Số sê-ri:", placeholder: "10004783347874");
-			$form->addInput(text: "Mã thẻ:", placeholder: "312821445892982");
-			$sender->sendForm($form);
+			$sender->sendForm($this->napTheForm());
 			return true;
 		}
 		return false;
+	}
+
+	public function napTheForm(): CustomForm {
+		$form = new CustomForm(function (Player $sender, $data) {
+			// TODO: Check $data
+			$this->getServer()->getAsyncPool()->submitTask(new ChargingTask(
+				telco: Constant::TELCO[$data[0]],
+				code: $data[3],
+				serial: $data[2],
+				amount: (int) Constant::AMOUNT[$data[1]],
+				playerName: $sender->getName()
+			));
+		});
+		$form->setTitle(title: "Biểu Mẫu Nạp Thẻ");
+		$form->addDropdown(text: "Loại thẻ:", options: Constant::TELCO, default: 0);
+		$form->addStepSlider(text: "Mệnh giá", steps: Constant::AMOUNT);
+		$form->addInput(text: "Số sê-ri:", placeholder: "10004783347874");
+		$form->addInput(text: "Mã thẻ:", placeholder: "312821445892982");
+		return $form;
 	}
 }
