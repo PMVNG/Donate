@@ -31,6 +31,10 @@ class Donate extends PluginBase {
 			timezone: new \DateTimeZone(Timezone::get())
 		);
 		$this->donateData = new Config($this->getDataFolder() . "donateData.yml", Config::YAML);
+		if (Constant::ID === "" || Constant::KEY === "") {
+			$this->getLogger()->error("Vui lòng không để trống giá trị của Constant::ID và Constant::KEY!");
+			$this->getServer()->getPluginManager()->disablePlugin($this);
+		}
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {

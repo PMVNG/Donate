@@ -17,6 +17,7 @@ class Constant {
 	/** Số tiền người chơi nhận được trong máy chủ khi nạp thẻ thành công sẽ nhân với giá trị này */
 	public const BONUS = 1;
 
+	/** Không thay đổi giá trị của hằng này */
 	public const TELCO = [
 		"VIETTEL",
 		"VINA",
@@ -39,6 +40,7 @@ class Constant {
 		"Gate"
 	];
 
+	/** Không thay đổi giá trị của hằng này */
 	public const AMOUNT =  [
 		10000,
 		20000,
