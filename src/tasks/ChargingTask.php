@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Donate\tasks;
 
 use Donate\Constant;
+use Donate\ErrorCode;
 use Donate\StatusCode;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
@@ -34,7 +35,7 @@ class ChargingTask extends AsyncTask {
 		];
 		$ch = curl_init(Constant::URL);
 		if ($ch === false) {
-			var_dump(Constant::PREFIX . "Lỗi: Không thể tạo một phiên cURL mới!");
+			var_dump(Constant::PREFIX . "Lỗi: Không thể tạo một phiên cURL mới!" . ErrorCode::AZ001);
 			return;
 		}
 		curl_setopt_array($ch, [
@@ -49,7 +50,7 @@ class ChargingTask extends AsyncTask {
 		$raw = curl_exec($ch);
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		if (!is_string($raw)) {
-			var_dump(Constant::PREFIX . "Lỗi: Thực hiện một phiên cURL đã cho thất bại! (" . curl_error($ch) . ")");
+			var_dump(Constant::PREFIX . "Lỗi: Thực hiện một phiên cURL đã cho thất bại! (" . curl_error($ch) . ")" . ErrorCode::AZ002);
 			return;
 		}
 		$result = json_decode($raw, true);
@@ -66,21 +67,29 @@ class ChargingTask extends AsyncTask {
 		$player = Server::getInstance()->getPlayerExact($this->playerName);
 		if (!isset($content) || is_array($content) && $content["result"] == false) {
 			if ($player !== null) {
-				$player->sendMessage(Constant::PREFIX . "Đã có lỗi xảy ra! Vui lòng thử lại sau.");
+				$player->sendMessage(Constant::PREFIX . "Đã có lỗi xảy ra! Vui lòng thử lại sau." . ErrorCode::AZ003);
 			}
-			var_dump(Constant::PREFIX . "Lỗi: Không thể lấy thông tin cập nhật. Kết nối hết thời gian chờ?!");
+			var_dump(Constant::PREFIX . "Lỗi: Không thể lấy thông tin cập nhật. Kết nối hết thời gian chờ?!" . ErrorCode::AZ004);
 			return;
 		}
 		if (is_array($content) && $content["web_status"] !== StatusCode::OK) {
 			if ($player !== null) {
-				$player->sendMessage(Constant::PREFIX . "Đã cố lỗi xảy ra! Vui lòng thử lại sau.");
+				$player->sendMessage(Constant::PREFIX . "Đã cố lỗi xảy ra! Vui lòng thử lại sau." . ErrorCode::AZ005);
 			}
-			var_dump(Constant::PREFIX . "Lỗi: Trạng thái trang web không ổn!");
+			var_dump(Constant::PREFIX . "Lỗi: Trạng thái trang web không ổn!" . ErrorCode::AZ006);
 			return;
 		}
 		if (is_array($content) && $content["result"]["status"] == StatusCode::WAITING_FOR_PROCESSING) {
+			$arrayPost = json_encode($content["arrayPost"]);
+			if ($arrayPost === false) {
+				if ($player !== null) {
+					$player->sendMessage(Constant::PREFIX . "Đã có lỗi xảy ra! Vui lòng thử lại sau." . ErrorCode::AZ007);
+				}
+				var_dump(Constant::PREFIX . 'Lỗi! Chà json_encode($content["arrayPost"]) trả về false' . ErrorCode::AZ008);
+				return;
+			}
 			Server::getInstance()->getAsyncPool()->submitTask(new CheckTask(
-				arrayPost: $content["arrayPost"],
+				arrayPost: $arrayPost,
 				playerName: $this->playerName
 			));
 			if ($player !== null) {
@@ -94,10 +103,10 @@ class ChargingTask extends AsyncTask {
 				return;
 			}
 			if (is_array($content) && $content["result"]["status"] == StatusCode::FAILED_WITH_REASON) {
-				$player->sendMessage(Constant::PREFIX . "Lỗi: " . $content["result"]["message"] . "!");
+				$player->sendMessage(Constant::PREFIX . "Lỗi: " . $content["result"]["message"] . "!" . ErrorCode::AZ009);
 				return;
 			}
-			$player->sendMessage(Constant::PREFIX . "Lỗi không xác định! Vui lòng thử lại sau.");
+			$player->sendMessage(Constant::PREFIX . "Lỗi không xác định! Vui lòng thử lại sau." . ErrorCode::AZ010);
 		}
 	}
 }
