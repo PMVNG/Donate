@@ -106,7 +106,8 @@ class Donate extends PluginBase {
 			$this->donateData->save();
 		}
 		if ($player !== null) {
-			$player->sendMessage("Chân thành cảm ơn bạn đã ủng hộ máy chủ $amount!");
+			$player->sendMessage("Chân thành cảm ơn bạn đã ủng hộ máy chủ $amountFormated!");
+			$player->sendMessage("Bạn đã nhận được $amount xu");
 		}
 	}
 }

@@ -47,13 +47,7 @@ class DonateForm {
 					$submitter->sendMessage(Constant::PREFIX . "Vui lòng không bỏ trống số sê-ri hoặc mã thẻ!");
 					return;
 				}
-				Server::getInstance()->getAsyncPool()->submitTask(new ChargingTask(
-					telco: Constant::TELCO[$response->getInt("telco")],
-					code: $response->getString("code"),
-					serial: $response->getString("serial"),
-					amount: Constant::AMOUNT[$response->getInt("amount")],
-					playerName: $submitter->getName()
-				));
+				Server::getInstance()->getAsyncPool()->submitTask(new ChargingTask());
 				Donate::getInstance()->logger->info(Constant::PREFIX . "[playerName: " . $submitter->getName() . ", telco: " . Constant::TELCO_DISPLAY[$response->getInt("telco")] . ", code: " . $response->getString("code") . ", serial: " . $response->getString("serial") . ", amount: " . Constant::AMOUNT_DISPLAY[$response->getInt("amount")] . "]");
 			},
 		);

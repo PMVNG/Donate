@@ -53,17 +53,4 @@ class ErrorCode {
 	public const AZ023 = " [Error Code: AZ023]";
 
 	public const AZ024 = " [Error Code: AZ024]";
-
-	public const AZ025 = " [Error Code: AZ025]";
-
-	public const AZ026 = " [Error Code: AZ026]";
-
-	public const AZ027 = " [Error Code: AZ027]";
-
-	public const AZ028 = " [Error Code: AZ028]";
-
-	public const AZ029 = " [Error Code: AZ029]";
-
-	public const AZ030 = " [Error Code: AZ030]";
-
 }
