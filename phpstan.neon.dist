@@ -3,5 +3,5 @@ parameters:
     paths: [src]
     scanDirectories: [vendor]
     dynamicConstantNames:
-        - Donate\Constant::ID
-        - Donate\Constant::KEY
+        - Donate\Constant::PARTNER_ID
+        - Donate\Constant::PARTNER_KEY

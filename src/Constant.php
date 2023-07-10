@@ -8,9 +8,9 @@ class Constant {
 
 	public const PREFIX = "[Nạp Thẻ] ";
 
-	public const ID = "";
+	public const PARTNER_ID = "";
 
-	public const KEY = "";
+	public const PARTNER_KEY = "";
 
 	public const URL = "https://trumthe.vn//chargingws/v2";
 
